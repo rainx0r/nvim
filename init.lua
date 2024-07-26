@@ -390,11 +390,11 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    'folke/tokyonight.nvim',
+  {
+    dir = '~/.config/nvim/lua/custom/themes/rainx0r-dark.nvim',
+    name = 'rainx0r-dark',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      vim.cmd.colorscheme 'tokyonight-night'
       vim.cmd.hi 'Comment gui=none'
     end,
   },
