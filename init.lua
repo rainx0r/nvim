@@ -6,7 +6,7 @@ vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.mouse = 'a'
 vim.opt.showmode = false
 vim.opt.clipboard = 'unnamedplus'
@@ -72,11 +72,12 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
+        add = { text = '┃' },
+        change = { text = '┃' },
         delete = { text = '_' },
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
+        untracked = { text = '┆' },
       },
     },
   },
@@ -118,11 +119,12 @@ require('lazy').setup({
     },
     config = function()
       require('telescope').setup {
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          path_display = { 'smart' },
+          --   mappings = {
+          --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          --   },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -390,14 +392,18 @@ require('lazy').setup({
     end,
   },
 
+  { 'rktjmp/lush.nvim' },
   {
-    dir = '~/.config/nvim/lua/custom/themes/rainx0r-dark.nvim',
-    name = 'rainx0r-dark',
+    'rainx0r-dark',
+    dir = '~/.config/nvim/lua/custom/themes/rainx0r-dark/',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
+      vim.cmd.colorscheme 'rainx0r-dark'
       vim.cmd.hi 'Comment gui=none'
     end,
+    lazy = true,
   },
+
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
