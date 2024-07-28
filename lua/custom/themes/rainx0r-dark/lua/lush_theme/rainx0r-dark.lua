@@ -231,6 +231,10 @@ local theme = lush(function(injected_functions)
     -- sym"@preproc"           { }, -- PreProc
     -- sym"@debug"             { }, -- Debug
     -- sym"@tag"               { }, -- Tag
+
+    -- ibl
+    IblScope { fg = hsl '#394040' },
+    IblIndent { fg = hsl '#263132' },
   }
 end)
 
