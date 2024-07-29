@@ -140,6 +140,7 @@ local theme = lush(function(injected_functions)
     Delimiter { fg = hsl '#9DB4BB' }, --   Character that needs attention
     SpecialComment { fg = hsl '#FF3D9E' }, --   Special things inside a comment (e.g. '\n')
     Debug { fg = hsl '#FF3D9E' }, --   Debugging statements
+    debugBreakpoint { fg = hsl '#FF3D9E' },
 
     -- Underlined     { gui = "underline" }, -- Text that stands out, HTML links
     -- Ignore         { }, -- Left blank, hidden |hl-Ignore| (NOTE: May be invisible here in template)

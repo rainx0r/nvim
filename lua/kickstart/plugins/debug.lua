@@ -60,12 +60,13 @@ return {
         },
       },
     }
+    vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'debugBreakpoint', linehl = '', numhl = '' })
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     -- NOTE Language specific configs go here
-    require('dap-python').setup('python')
+    require('dap-python').setup 'python'
   end,
 }
