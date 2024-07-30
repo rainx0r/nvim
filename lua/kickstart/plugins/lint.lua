@@ -10,6 +10,13 @@ return {
         python = { 'mypy' },
       }
 
+      vim.list_extend(lint.linters.mypy.args, {
+        '--python-executable',
+        function()
+          return vim.fn.exepath 'python3' or vim.fn.exepath 'python'
+        end,
+      })
+
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })

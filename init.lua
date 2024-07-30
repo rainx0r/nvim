@@ -89,7 +89,7 @@ require('lazy').setup({
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t', group = '[T]ests' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       }
     end,
@@ -319,6 +319,9 @@ require('lazy').setup({
       notify_on_error = false,
       format_on_save = function(bufnr)
         local disable_filetypes = { c = true, cpp = true }
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -461,23 +464,6 @@ require('lazy').setup({
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
-  {
-    'christoomey/vim-tmux-navigator',
-    cmd = {
-      'TmuxNavigateLeft',
-      'TmuxNavigateDown',
-      'TmuxNavigateUp',
-      'TmuxNavigateRight',
-      'TmuxNavigatePrevious',
-    },
-    keys = {
-      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
-    },
-  },
 
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
@@ -511,6 +497,108 @@ require('lazy').setup({
     keys = {
       { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
+  },
+
+  -- Navigation
+  {
+    'christoomey/vim-tmux-navigator',
+    cmd = {
+      'TmuxNavigateLeft',
+      'TmuxNavigateDown',
+      'TmuxNavigateUp',
+      'TmuxNavigateRight',
+      'TmuxNavigatePrevious',
+    },
+    keys = {
+      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+    },
+  },
+
+  -- Sessions
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('auto-session').setup {
+        auto_session_suppress_dirs = {
+          '~/',
+          '~/Documents/Experiments',
+          '~/Documents/Repositories',
+          '~/Documents/Repositories/github.com/',
+          '~/Downloads',
+          '/',
+        },
+      }
+    end,
+  },
+
+  -- Tests
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-neotest/neotest-python',
+    },
+    config = function()
+      local neotest = require 'neotest'
+      ---@diagnostic disable-next-line: missing-fields
+      neotest.setup {
+        adapters = {
+          require 'neotest-python' {
+            dap = { justMyCode = false },
+          },
+        },
+        ---@diagnostic disable-next-line: missing-fields
+        summary = {
+          mappings = {
+            attach = 'a',
+            clear_marked = 'M',
+            clear_target = 'T',
+            debug = 'd',
+            debug_marked = 'D',
+            expand = { '<CR>', '<2-LeftMouse>' },
+            expand_all = 'e',
+            jumpto = 'i',
+            mark = 'm',
+            next_failed = 'J',
+            output = 'o',
+            prev_failed = 'K',
+            run = 'r',
+            run_marked = 'R',
+            short = 'O',
+            stop = 'u',
+            target = 't',
+            watch = 'w',
+          },
+        },
+      }
+
+      vim.keymap.set('n', '<leader>ts', neotest.summary.toggle, { desc = 'Open [T]est [S]ummary' })
+      vim.keymap.set('n', '<leader>tr', function()
+        neotest.run.run()
+        neotest.summary.open()
+      end, { desc = '[T]est [R]un' })
+      vim.keymap.set('n', '<leader>to', function()
+        neotest.output.open { last_run = true, enter = true }
+      end, { desc = '[T]est [O]output' })
+      vim.keymap.set('n', '<leader>tf', function()
+        neotest.run.run(vim.fn.expand '%')
+      end, { desc = '[T]est Current [F]ile' })
+      vim.keymap.set('n', '<leader>td', function()
+        ---@diagnostic disable-next-line: missing-fields
+        neotest.run.run { strategy = 'dap' }
+      end, { desc = '[T]est [D]ebug' })
+    end,
   },
 }, {
   ui = {
