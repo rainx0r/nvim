@@ -278,6 +278,11 @@ require('lazy').setup({
         },
         ruff = {},
         rust_analyzer = {},
+        bashls = {
+          settings = {
+            filetypes = { 'sh', 'zsh' },
+          },
+        },
 
         lua_ls = {
           settings = {
@@ -300,6 +305,9 @@ require('lazy').setup({
         'markdownlint',
         -- Python
         'mypy',
+        -- Shells
+        'shfmt',
+        'shellcheck',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -344,6 +352,8 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_format' },
+        sh = { 'shfmt' },
+        zsh = { 'shfmt' },
       },
     },
   },
