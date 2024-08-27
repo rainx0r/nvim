@@ -29,6 +29,7 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>el', '<cmd>vsplit<CR>')
 vim.keymap.set('n', '<leader>ej', '<cmd>split<CR>')
 vim.keymap.set('n', '<C-x>', '<cmd>q<CR>')
@@ -50,6 +51,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- [[ Set Diagnostic Options ]]
+vim.diagnostic.config {
+  signs = false,
+  virtual_text = false,
+  float = {
+    scope = 'line',
+    source = true,
+  },
+}
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
