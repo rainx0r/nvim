@@ -236,6 +236,19 @@ local theme = lush(function(injected_functions)
     -- ibl
     IblScope { fg = hsl '#394040' },
     IblIndent { fg = hsl '#263132' },
+
+    -- neo-tree
+    NeoTreeDirectoryName { fg = hsl '#C2D2D6' },
+    NeoTreeDirectoryIcon { fg = hsl '#C2D2D6' },
+    NeoTreeFilename { fg = hsl '#C2D2D6' },
+    NeoTreeGitModified { fg = hsl '#66E6FF' },
+    NeoTreeGitAdded { fg = hsl '#66FFDE' },
+    NeoTreeGitDeleted { fg = hsl '#FF1E00' },
+    NeoTreeGitConflict { fg = hsl '#CC0044' },
+    NeoTreeGitUntracked { fg = hsl '#66FFDE', gui = 'italic' },
+    NeoTreeGitIgnored { fg = hsl '#4d5457' },
+    NeoTreeDimText { fg = hsl '#4d5457' },
+    NeoTreeDotfile { fg = hsl '#4d5457' },
   }
 end)
 
