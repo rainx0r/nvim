@@ -249,6 +249,10 @@ local theme = lush(function(injected_functions)
     NeoTreeGitIgnored { fg = hsl '#4d5457' },
     NeoTreeDimText { fg = hsl '#4d5457' },
     NeoTreeDotfile { fg = hsl '#4d5457' },
+
+    -- Spectre
+    SpectreReplaceText { fg = hsl '#004D2D', bg = hsl '#A3FFF0' },
+    SpectreMatchText { fg = hsl '#800015', bg = hsl '#FFB2CC' },
   }
 end)
 

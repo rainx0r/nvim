@@ -625,6 +625,24 @@ require('lazy').setup({
       end, { desc = '[T]est [D]ebug' })
     end,
   },
+
+  -- Refactoring
+  {
+    'nvim-pack/nvim-spectre',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      local spectre = require 'spectre'
+      spectre.setup {
+        highlight = {
+          search = 'SpectreMatchText',
+          replace = 'SpectreReplaceText',
+        },
+      }
+      vim.keymap.set('n', '<leader>FR', spectre.toggle, { desc = '[F]ind & [R]eplace' })
+    end,
+  },
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
