@@ -27,6 +27,12 @@ return {
         never_show = {
           '.DS_Store',
           '.git',
+          '__pycache__',
+          '*.egg-info',
+          '.vscode',
+          '.mypy_cache',
+          '.idea',
+          '.pytest_cache',
         },
       },
       window = {

@@ -31,6 +31,8 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float)
+vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>el', '<cmd>vsplit<CR>')
 vim.keymap.set('n', '<leader>ej', '<cmd>split<CR>')
 vim.keymap.set('n', '<C-x>', '<cmd>q<CR>')
