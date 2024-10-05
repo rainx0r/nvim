@@ -7,15 +7,8 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
-        python = { 'mypy' },
+        python = {},
       }
-
-      vim.list_extend(lint.linters.mypy.args, {
-        '--python-executable',
-        function()
-          return vim.fn.exepath 'python3' or vim.fn.exepath 'python'
-        end,
-      })
 
       -- Create autocommand which carries out the actual linting
       -- on the specified events.

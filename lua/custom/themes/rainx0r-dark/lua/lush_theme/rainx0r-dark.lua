@@ -155,6 +155,7 @@ local theme = lush(function(injected_functions)
     -- LspCodeLens                 { } , -- Used to color the virtual text of the codelens. See |nvim_buf_set_extmark()|.
     -- LspCodeLensSeparator        { } , -- Used to color the seperator between two or more code lens.
     -- LspSignatureActiveParameter { } , -- Used to highlight the active parameter in the signature help. See |vim.lsp.handlers.signature_help()|.
+    LspInlayHint { fg = hsl '#5C808A', bg = hsl '#1E2D31' },
 
     -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
     --

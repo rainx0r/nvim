@@ -35,7 +35,9 @@ vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>el', '<cmd>vsplit<CR>')
 vim.keymap.set('n', '<leader>ej', '<cmd>split<CR>')
-vim.keymap.set('n', '<C-x>', '<cmd>q<CR>')
+vim.keymap.set('n', '<C-x>', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>')
+vim.keymap.set('n', '<C-w>', '<cmd>bnext<CR>')
+vim.keymap.set('n', '<C-q>', '<cmd>bprev<CR>')
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -271,15 +273,25 @@ require('lazy').setup({
         basedpyright = {
           settings = {
             basedpyright = {
-              disableOrganizeImports = true,
-              typeCheckingMode = 'off',
-              analysis = {
-                ignore = { '*' },
-              },
+                disableOrganizeImports = true,
+                disableTaggedHints = false,
+                analysis = {
+                    typeCheckingMode = "standard",
+                    useLibraryCodeForTypes = true,
+                    autoImportCompletions = true,
+                    autoSearchPaths = true,
+                    diagnosticSeverityOverrides = {
+                        reportIgnoreCommentWithoutRule = true,
+                    },
+                },
             },
           },
         },
-        ruff = {},
+        ruff = {
+            capabilities = {
+                hoverProvider = false
+            }
+        },
         rust_analyzer = {},
         bashls = {
           settings = {
@@ -306,8 +318,6 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'markdownlint',
-        -- Python
-        'mypy',
         -- Shells
         'shfmt',
         'shellcheck',
@@ -470,6 +480,10 @@ require('lazy').setup({
       statusline.section_location = function()
         return '%2l:%-2v'
       end
+
+      -- Tabs for buffers
+      local tabline = require 'mini.tabline'
+      tabline.setup { use_icons = vim.g.have_nerd_font }
     end,
   },
   { -- Highlight, edit, and navigate code
