@@ -273,24 +273,24 @@ require('lazy').setup({
         basedpyright = {
           settings = {
             basedpyright = {
-                disableOrganizeImports = true,
-                disableTaggedHints = false,
-                analysis = {
-                    typeCheckingMode = "standard",
-                    useLibraryCodeForTypes = true,
-                    autoImportCompletions = true,
-                    autoSearchPaths = true,
-                    diagnosticSeverityOverrides = {
-                        reportIgnoreCommentWithoutRule = true,
-                    },
+              disableOrganizeImports = true,
+              disableTaggedHints = false,
+              analysis = {
+                typeCheckingMode = 'standard',
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticSeverityOverrides = {
+                  reportIgnoreCommentWithoutRule = true,
                 },
+              },
             },
           },
         },
         ruff = {
-            capabilities = {
-                hoverProvider = false
-            }
+          capabilities = {
+            hoverProvider = false,
+          },
         },
         rust_analyzer = {},
         bashls = {
@@ -466,9 +466,21 @@ require('lazy').setup({
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     config = function()
       -- Better Around/Inside textobjects
-      require('mini.ai').setup { n_lines = 500 }
+      local ai = require 'mini.ai'
+      ai.setup {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter({
+            a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+            i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+          }, {}),
+          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+          c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       require('mini.surround').setup()
