@@ -298,6 +298,8 @@ require('lazy').setup({
             filetypes = { 'sh', 'zsh' },
           },
         },
+        hls = {},
+        zls = {},
 
         lua_ls = {
           settings = {
@@ -323,6 +325,16 @@ require('lazy').setup({
         'shellcheck',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      servers.sourcekit = {
+        capabilities = {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        },
+      }
 
       require('mason-lspconfig').setup {
         handlers = {
@@ -398,10 +410,12 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
+      -- 'echasnovski/mini.nvim',
     },
     config = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      -- local icons = require 'mini.icons'
       luasnip.config.setup {}
 
       cmp.setup {
@@ -411,6 +425,15 @@ require('lazy').setup({
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
+        -- ---@diagnostic disable-next-line: missing-fields
+        -- formatting = {
+        --   format = function(_, vim_item)
+        --     local icon, hl = icons.get('lsp', vim_item.kind)
+        --     vim_item.kind = icon
+        --     vim_item.kind_hl_group = hl
+        --     return vim_item
+        --   end,
+        -- },
 
         mapping = cmp.mapping.preset.insert {
           ['<C-n>'] = cmp.mapping.select_next_item(),
