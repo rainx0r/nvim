@@ -314,7 +314,12 @@ require('lazy').setup({
         },
       }
 
-      require('mason').setup()
+      require('mason').setup {
+        registries = {
+          'github:rainx0r/mason-registry',
+          'github:mason-org/mason-registry',
+        },
+      }
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
@@ -323,6 +328,8 @@ require('lazy').setup({
         -- Shells
         'shfmt',
         'shellcheck',
+        -- TOML
+        'taplo',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -352,6 +359,15 @@ require('lazy').setup({
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
+    config = function()
+      require('conform').setup {
+        formatters = {
+          taplo = {
+            args = '--option indent_string="    "',
+          },
+        },
+      }
+    end,
     keys = {
       {
         '<leader>f',
@@ -379,6 +395,7 @@ require('lazy').setup({
         python = { 'ruff_format' },
         sh = { 'shfmt' },
         zsh = { 'shfmt' },
+        toml = { 'taplo' },
       },
     },
   },
@@ -525,7 +542,23 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'python' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'python',
+        'haskell',
+        'zig',
+        'swift',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
