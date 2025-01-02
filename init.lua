@@ -313,6 +313,7 @@ require('lazy').setup({
           },
         },
         terraformls = {},
+        jsonls = {},
       }
 
       require('mason').setup {
