@@ -25,6 +25,10 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.fillchars = { eob = ' ' }
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 -- [[ Basic Keymaps ]]
 vim.opt.hlsearch = true
@@ -300,6 +304,7 @@ require('lazy').setup({
         },
         hls = {},
         zls = {},
+        clangd = {},
 
         lua_ls = {
           settings = {
@@ -332,6 +337,8 @@ require('lazy').setup({
         'shellcheck',
         -- TOML
         'taplo',
+        -- C/C++/...
+        'clang-format',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -403,6 +410,12 @@ require('lazy').setup({
         tf = { 'terraform_fmt' },
         terraform = { 'terraform_fmt' },
         ["terraform-vars"] = { "terraform_fmt" },
+        c = { "clang-format" },
+        cs = { "clang-format" },
+        cc = { "clang-format" },
+        cpp = { "clang-format" },
+        proto = { "clang-format" },
+        cuda = { "clang-format" },
       },
     },
   },
@@ -427,12 +440,12 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
-      -- 'echasnovski/mini.nvim',
+      'echasnovski/mini.nvim',
     },
     config = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      -- local icons = require 'mini.icons'
+      local icons = require 'mini.icons'
       luasnip.config.setup {}
 
       cmp.setup {
@@ -442,15 +455,15 @@ require('lazy').setup({
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
-        -- ---@diagnostic disable-next-line: missing-fields
-        -- formatting = {
-        --   format = function(_, vim_item)
-        --     local icon, hl = icons.get('lsp', vim_item.kind)
-        --     vim_item.kind = icon
-        --     vim_item.kind_hl_group = hl
-        --     return vim_item
-        --   end,
-        -- },
+        ---@diagnostic disable-next-line: missing-fields
+        formatting = {
+          format = function(_, vim_item)
+            local icon, hl = icons.get('lsp', vim_item.kind)
+            vim_item.kind = icon .. " " .. vim_item.kind
+            vim_item.kind_hl_group = hl
+            return vim_item
+          end,
+        },
 
         mapping = cmp.mapping.preset.insert {
           ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -561,6 +574,7 @@ require('lazy').setup({
         'swift',
         'terraform',
         'hcl',
+        'cpp',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
