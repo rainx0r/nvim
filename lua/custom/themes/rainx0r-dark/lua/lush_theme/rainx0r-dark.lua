@@ -59,15 +59,15 @@ local theme = lush(function(injected_functions)
     -- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
     -- LineNrBelow    { }, -- Line number for when the 'relativenumber' option is set, below the cursor line
     CursorLineNr { fg = hsl '#5C808A', bg = hsl '#1E2D31' }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    CursorLineFold { bg = hsl '#1E2D31' }, -- Like FoldColumn when 'cursorline' is set for the cursor line
-    CursorLineSign { bg = hsl '#1E2D31' }, -- Like SignColumn when 'cursorline' is set for the cursor line
+    CursorLineFold { bg = hsl '#1E2D31' },                   -- Like FoldColumn when 'cursorline' is set for the cursor line
+    CursorLineSign { bg = hsl '#1E2D31' },                   -- Like SignColumn when 'cursorline' is set for the cursor line
     -- MatchParen     { }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg        { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea        { }, -- Area for messages and cmdline
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    -- Normal         { }, -- Normal text
+    Normal { fg = hsl '#F8FBFC', bg = hsl '#0E181B' },         -- Normal text
     -- NormalFloat    { }, -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
@@ -103,10 +103,10 @@ local theme = lush(function(injected_functions)
     -- WinBar         { }, -- Window bar of current window
     -- WinBarNC       { }, -- Window bar of not-current windows
 
-    Comment { fg = hsl '#5C808A' }, -- Any comment
+    Comment { fg = hsl '#5C808A' },  -- Any comment
 
     Constant { fg = hsl '#FF80BB' }, -- (*) Any constant
-    String { fg = hsl '#A3FFF0' }, --   A string constant: "this is a string"
+    String { fg = hsl '#A3FFF0' },   --   A string constant: "this is a string"
     -- Character      { }, --   A character constant: 'c', '\n'
     -- Number         { }, --   A number constant: 234, 0xff
     -- Boolean        { }, --   A boolean constant: TRUE, false
@@ -120,7 +120,7 @@ local theme = lush(function(injected_functions)
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --   case, default, etc.
     Operator { fg = hsl '#9DB4BB' }, --   "sizeof", "+", "*", etc.
-    Keyword { fg = hsl '#0081CC' }, --   any other keyword
+    Keyword { fg = hsl '#0081CC' },  --   any other keyword
     -- Exception      { }, --   try, catch, throw
     --
     -- PreProc        { }, -- (*) Generic Preprocessor
@@ -134,12 +134,12 @@ local theme = lush(function(injected_functions)
     -- Structure      { }, --   struct, union, enum, etc.
     -- Typedef        { }, --   A typedef
 
-    Special { fg = hsl '#D6FEFF' }, -- (*) Any special symbol
-    SpecialChar { fg = hsl '#FF3D9E' }, --   Special character in a constant
+    Special { fg = hsl '#D6FEFF' },        -- (*) Any special symbol
+    SpecialChar { fg = hsl '#FF3D9E' },    --   Special character in a constant
     -- Tag            { }, --   You can use CTRL-] on this
-    Delimiter { fg = hsl '#9DB4BB' }, --   Character that needs attention
+    Delimiter { fg = hsl '#9DB4BB' },      --   Character that needs attention
     SpecialComment { fg = hsl '#FF3D9E' }, --   Special things inside a comment (e.g. '\n')
-    Debug { fg = hsl '#FF3D9E' }, --   Debugging statements
+    Debug { fg = hsl '#FF3D9E' },          --   Debugging statements
     debugBreakpoint { fg = hsl '#FF3D9E' },
 
     -- Underlined     { gui = "underline" }, -- Text that stands out, HTML links
@@ -221,10 +221,10 @@ local theme = lush(function(injected_functions)
     -- sym"@keyword"           { }, -- Keyword
     -- sym"@exception"         { }, -- Exception
     -- sym"@variable"          { }, -- Identifier
-    sym '@variable.member' { fg = hsl '#B3F2FF' }, -- object and struct fields
+    sym '@variable.member' { fg = hsl '#B3F2FF' },                  -- object and struct fields
     sym '@variable.builtin' { gui = 'italic', fg = hsl '#D6FEFF' }, -- this, self etc
     -- sym"@type"              { }, -- Type
-    sym '@type.builtin' { fg = hsl '#66E6FF' }, -- Built-in types
+    sym '@type.builtin' { fg = hsl '#66E6FF' },                     -- Built-in types
     -- sym"@type.definition"   { }, -- Typedef
     -- sym"@storageclass"      { }, -- StorageClass
     -- sym"@structure"         { }, -- Structure
