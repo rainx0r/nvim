@@ -84,6 +84,7 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
+---@diagnostic disable-next-line: missing-fields
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   {                   -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -322,6 +323,7 @@ require('lazy').setup({
         jsonls = {},
       }
 
+      ---@diagnostic disable-next-line: missing-fields
       require('mason').setup {
         registries = {
           'github:rainx0r/mason-registry',
@@ -353,6 +355,7 @@ require('lazy').setup({
         },
       }
 
+      ---@diagnostic disable-next-line: missing-fields
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
@@ -440,14 +443,26 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
-      'hrsh7th/cmp-buffer',
-      'echasnovski/mini.nvim',
+      'onsails/lspkind-nvim',
     },
     config = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      local icons = require 'mini.icons'
+      local lspkind = require('lspkind')
       luasnip.config.setup {}
+
+      local function border(hl_name)
+        return {
+          { "╭", hl_name },
+          { "─", hl_name },
+          { "╮", hl_name },
+          { "│", hl_name },
+          { "╯", hl_name },
+          { "─", hl_name },
+          { "╰", hl_name },
+          { "│", hl_name },
+        }
+      end
 
       cmp.setup {
         snippet = {
@@ -455,13 +470,25 @@ require('lazy').setup({
             luasnip.lsp_expand(args.body)
           end,
         },
+        window = {
+          completion = {
+            side_padding = 0,
+            scrollbar = true,
+            winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
+          },
+          documentation = {
+            border = border "CmpDocBorder",
+            winhighlight = "Normal:CmpDoc",
+          },
+        },
         completion = { completeopt = 'menu,menuone,noinsert' },
         ---@diagnostic disable-next-line: missing-fields
         formatting = {
+          fields = { "kind", "abbr", "menu" },
           format = function(_, vim_item)
-            local icon, hl = icons.get('lsp', vim_item.kind)
-            vim_item.kind = icon .. " " .. vim_item.kind
-            vim_item.kind_hl_group = hl
+            local icon = lspkind.symbol_map[vim_item.kind]
+            vim_item.menu = " (" .. vim_item.kind .. ")"
+            vim_item.kind = " " .. icon .. " "
             return vim_item
           end,
         },
@@ -498,11 +525,22 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
-          { name = 'buffer' },
           { name = 'path' },
         },
       }
     end,
+  },
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = "<Tab>",
+          clear_suggestion = "<C-]>",
+          accept_word = "<C-j>",
+        },
+      }
+    end
   },
 
   -- Theming
@@ -745,6 +783,8 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>FR', spectre.toggle, { desc = '[F]ind & [R]eplace' })
     end,
   },
+
+  ---@diagnostic disable-next-line: missing-fields
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
