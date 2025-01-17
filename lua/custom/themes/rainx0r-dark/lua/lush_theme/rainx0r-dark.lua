@@ -73,10 +73,10 @@ local theme = lush(function(injected_functions)
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
     -- Pmenu          { }, -- Popup menu: Normal item.
-    CmpPmenu { fg = hsl '#F8FBFC', bg = hsl '#000000' },
-    CmpSel { fg = hsl '#0E181B', bg = hsl '#F8FBFC' },
-    CmpDoc { fg = hsl '#F8FBFC', bg = hsl '#000000' },
-    CmpDocBorder { fg = hsl '#F8FBFC', bg = hsl '#000000' },
+    BlinkCmpMenu { fg = hsl '#F8FBFC', bg = hsl '#000000' },
+    BlinkCmpMenuSelection { fg = 'NONE', bg = hsl '#1E2D31' },
+    BlinkCmpDoc { fg = hsl '#F8FBFC', bg = hsl '#000000' },
+    BlinkCmpDocBorder { fg = hsl '#F8FBFC', bg = hsl '#000000' },
     -- PmenuSel       { }, -- Popup menu: Selected item.
     -- PmenuKind      { }, -- Popup menu: Normal item "kind"
     -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
@@ -259,36 +259,35 @@ local theme = lush(function(injected_functions)
     SpectreReplaceText { fg = hsl '#004D2D', bg = hsl '#A3FFF0' },
     SpectreMatchText { fg = hsl '#800015', bg = hsl '#FFB2CC' },
 
-    -- nvim-cmp
-    CmpItemAbbr { fg = hsl '#F8FBFC' },
-    CmpItemAbbrMatch { fg = hsl '#B3F2FF' },
-    CmpItemAbbrMatchFuzzy { fg = hsl '#B3F2FF' },
-    CmpItemAbbrDeprecated { fg = hsl '#5C808A', strikethrough = true },
-    CmpItemKindText { bg = hsl '#F8FBFC', fg = hsl '#0E181B' },
-    CmpItemKindMethod { bg = hsl '#00C2FF', fg = hsl '#0E181B' },
-    CmpItemKindFunction { bg = hsl '#00C2FF', fg = hsl '#0E181B' },
-    CmpItemKindConstructor { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
-    CmpItemKindField { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
-    CmpItemKindProperty { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
-    CmpItemKindVariable { bg = hsl '#FF80BB', fg = hsl '#0E181B' },
-    CmpItemKindClass { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
-    CmpItemKindInterface { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
-    CmpItemKindEnum { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
-    CmpItemKindStruct { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
-    CmpItemKindTypeParameter { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
-    CmpItemKindEnumMember { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
-    CmpItemKindModule { bg = hsl '#00A1FF', fg = hsl '#0E181B' },
-    CmpItemKindUnit { bg = hsl '#FF80BB', fg = hsl '#0E181B' },   -- TODO:
-    CmpItemKindValue { bg = hsl '#00A1FF', fg = hsl '#0E181B' },  -- TODO:
-    CmpItemKindKeyword { bg = hsl '#0081CC', fg = hsl '#0E181B' },
-    CmpItemKindOperator { bg = hsl '#9DB4BB', fg = hsl '#0E181B' },
-    CmpItemKindConstant { bg = hsl '#FF80BB', fg = hsl '#0E181B' },
-    CmpItemKindColor { bg = hsl '#A3FFF0', fg = hsl '#0E181B' },
-    CmpItemKindFile { bg = hsl '#A3FFF0', fg = hsl '#0E181B' },
-    CmpItemKindFolder { bg = hsl '#A3FFF0', fg = hsl '#0E181B' },
-    CmpItemKindSnippet { bg = hsl '#d7ba7d', fg = hsl '#0E181B' },
-    CmpItemKindReference { bg = hsl '#d7ba7d', fg = hsl '#0E181B' },
-    CmpItemKindEvent { bg = hsl '#d7ba7d', fg = hsl '#0E181B' },
+    -- blink-cmp
+    BlinkCmpLabel { fg = hsl '#F8FBFC' },
+    BlinkCmpLabelMatch { fg = hsl '#B3F2FF' },
+    BlinkCmpLabelDeprecated { fg = hsl '#5C808A', strikethrough = true },
+    BlinkCmpKindText { bg = hsl '#F8FBFC', fg = hsl '#0E181B' },
+    BlinkCmpKindMethod { bg = hsl '#00C2FF', fg = hsl '#0E181B' },
+    BlinkCmpKindFunction { bg = hsl '#00C2FF', fg = hsl '#0E181B' },
+    BlinkCmpKindConstructor { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
+    BlinkCmpKindField { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
+    BlinkCmpKindProperty { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
+    BlinkCmpKindVariable { bg = hsl '#FF80BB', fg = hsl '#0E181B' },
+    BlinkCmpKindClass { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
+    BlinkCmpKindInterface { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
+    BlinkCmpKindEnum { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
+    BlinkCmpKindStruct { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
+    BlinkCmpKindTypeParameter { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
+    BlinkCmpKindEnumMember { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
+    BlinkCmpKindModule { bg = hsl '#00A1FF', fg = hsl '#0E181B' },
+    BlinkCmpKindUnit { bg = hsl '#FF80BB', fg = hsl '#0E181B' },   -- TODO:
+    BlinkCmpKindValue { bg = hsl '#00A1FF', fg = hsl '#0E181B' },  -- TODO:
+    BlinkCmpKindKeyword { bg = hsl '#0081CC', fg = hsl '#0E181B' },
+    BlinkCmpKindOperator { bg = hsl '#9DB4BB', fg = hsl '#0E181B' },
+    BlinkCmpKindConstant { bg = hsl '#FF80BB', fg = hsl '#0E181B' },
+    BlinkCmpKindColor { bg = hsl '#A3FFF0', fg = hsl '#0E181B' },
+    BlinkCmpKindFile { bg = hsl '#A3FFF0', fg = hsl '#0E181B' },
+    BlinkCmpKindFolder { bg = hsl '#A3FFF0', fg = hsl '#0E181B' },
+    BlinkCmpKindSnippet { bg = hsl '#d7ba7d', fg = hsl '#0E181B' },
+    BlinkCmpKindReference { bg = hsl '#d7ba7d', fg = hsl '#0E181B' },
+    BlinkCmpKindEvent { bg = hsl '#d7ba7d', fg = hsl '#0E181B' },
   }
 end)
 

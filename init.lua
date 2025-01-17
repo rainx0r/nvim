@@ -213,6 +213,10 @@ require('lazy').setup({
         },
       },
       { 'Bilal2453/luvit-meta', lazy = true },
+      {
+        'saghen/blink.cmp',
+        version = '*',
+      }
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -272,7 +276,7 @@ require('lazy').setup({
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
       -- Enable the following language servers
       local servers = {
@@ -425,110 +429,50 @@ require('lazy').setup({
   },
 
   { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      {
-        'L3MON4D3/LuaSnip',
-        build = (function()
-          -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
-          return 'make install_jsregexp'
-        end)(),
+    'saghen/blink.cmp',
+    dependencies = 'rafamadriz/friendly-snippets',
+    version = '*',
+    opts = {
+      keymap = { preset = 'default' },
+      signature = { enabled = true },
+
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        menu = {
+          draw = {
+            padding = 0,
+            components = {
+              kind_icon = {
+                text = function(ctx)
+                  return ctx.icon_gap .. ctx.kind_icon .. ctx.icon_gap
+                end,
+              },
+              kind = {
+                text = function(ctx)
+                  return " (" .. ctx.kind .. ") "
+                end,
+                highlight = function(_)
+                  return { { 0, 0, group = "BlinkCmpMenu" } }
+                end
+              }
+            },
+            columns = {
+              { "kind_icon", },
+              { "label",     "label_description", "kind", gap = 1 },
+            },
+            treesitter = { 'lsp' },
+          }
+        },
       },
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-path',
-      'onsails/lspkind-nvim',
+
+      appearance = {
+        nerd_font_variant = 'normal'
+      },
+
+      sources = {
+        default = { 'lsp', 'path', 'snippets' },
+      },
     },
-    config = function()
-      local cmp = require 'cmp'
-      local luasnip = require 'luasnip'
-      local lspkind = require('lspkind')
-      luasnip.config.setup {}
-
-      local function border(hl_name)
-        return {
-          { "╭", hl_name },
-          { "─", hl_name },
-          { "╮", hl_name },
-          { "│", hl_name },
-          { "╯", hl_name },
-          { "─", hl_name },
-          { "╰", hl_name },
-          { "│", hl_name },
-        }
-      end
-
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        window = {
-          completion = {
-            side_padding = 0,
-            scrollbar = true,
-            winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
-          },
-          documentation = {
-            border = border "CmpDocBorder",
-            winhighlight = "Normal:CmpDoc",
-          },
-        },
-        completion = { completeopt = 'menu,menuone,noinsert' },
-        ---@diagnostic disable-next-line: missing-fields
-        formatting = {
-          fields = { "kind", "abbr", "menu" },
-          format = function(_, vim_item)
-            local icon = lspkind.symbol_map[vim_item.kind]
-            vim_item.menu = " (" .. vim_item.kind .. ")"
-            vim_item.kind = " " .. icon .. " "
-            return vim_item
-          end,
-        },
-
-        mapping = cmp.mapping.preset.insert {
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
-
-          -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
-
-          ['<C-Space>'] = cmp.mapping.complete {},
-
-          ['<C-l>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
-        },
-        sources = {
-          {
-            name = 'lazydev',
-            -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-            group_index = 0,
-          },
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'luasnip' },
-          { name = 'path' },
-        },
-      }
-    end,
   },
   {
     'supermaven-inc/supermaven-nvim',
