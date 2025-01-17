@@ -30,6 +30,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.termguicolors = true
+vim.hl = vim.highlight -- for inspect to work
 
 -- [[ Basic Keymaps ]]
 vim.opt.hlsearch = true
@@ -512,7 +513,7 @@ require('lazy').setup({
     lazy = false,
     version = false,
     opts = {
-      -- add any opts here
+      hints = { enabled = false },
       file_selector = {
         provider = "fzf",
         provider_opts = {},

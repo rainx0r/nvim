@@ -32,7 +32,7 @@ local theme = lush(function(injected_functions)
     --
     -- See :h highlight-groups
     --
-    -- ColorColumn    { }, -- Columns set with 'colorcolumn'
+    ColorColumn { bg = hsl '#0E181B' },   -- Columns set with 'colorcolumn'
     -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
     -- Cursor         { }, -- Character under the cursor
     -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
@@ -74,9 +74,13 @@ local theme = lush(function(injected_functions)
     -- NormalNC       { }, -- normal text in non-current windows
     -- Pmenu          { }, -- Popup menu: Normal item.
     BlinkCmpMenu { fg = hsl '#F8FBFC', bg = hsl '#000000' },
-    BlinkCmpMenuSelection { fg = 'NONE', bg = hsl '#1E2D31' },
+    -- BlinkCmpMenuSelection { fg = 'NONE', bg = hsl '#1E2D31' },
     BlinkCmpDoc { fg = hsl '#F8FBFC', bg = hsl '#000000' },
     BlinkCmpDocBorder { fg = hsl '#F8FBFC', bg = hsl '#000000' },
+    -- BlinkCmpDocSeparator { },
+    -- BlinkCmpDocCursorLine { },
+    -- BlinkSignatureHelpBorder { },
+    -- BlinkCmpSignatureHelpActiveParameter { },
     -- PmenuSel       { }, -- Popup menu: Selected item.
     -- PmenuKind      { }, -- Popup menu: Normal item "kind"
     -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
@@ -277,8 +281,8 @@ local theme = lush(function(injected_functions)
     BlinkCmpKindTypeParameter { bg = hsl '#66E6FF', fg = hsl '#0E181B' },
     BlinkCmpKindEnumMember { bg = hsl '#B3F2FF', fg = hsl '#0E181B' },
     BlinkCmpKindModule { bg = hsl '#00A1FF', fg = hsl '#0E181B' },
-    BlinkCmpKindUnit { bg = hsl '#FF80BB', fg = hsl '#0E181B' },   -- TODO:
-    BlinkCmpKindValue { bg = hsl '#00A1FF', fg = hsl '#0E181B' },  -- TODO:
+    BlinkCmpKindUnit { bg = hsl '#FF80BB', fg = hsl '#0E181B' },  -- TODO:
+    BlinkCmpKindValue { bg = hsl '#00A1FF', fg = hsl '#0E181B' }, -- TODO:
     BlinkCmpKindKeyword { bg = hsl '#0081CC', fg = hsl '#0E181B' },
     BlinkCmpKindOperator { bg = hsl '#9DB4BB', fg = hsl '#0E181B' },
     BlinkCmpKindConstant { bg = hsl '#FF80BB', fg = hsl '#0E181B' },
