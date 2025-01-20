@@ -529,6 +529,7 @@ require('lazy').setup({
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "echasnovski/mini.icons",
+      "ibhagwan/fzf-lua",
       {
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",
