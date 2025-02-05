@@ -159,8 +159,6 @@ return {
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
@@ -168,48 +166,46 @@ return {
         jsonls = {},
       }
 
-      ---@diagnostic disable-next-line: missing-fields
-      require('mason').setup {
-        registries = {
-          'github:rainx0r/mason-registry',
-          'github:mason-org/mason-registry',
-        },
-      }
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'markdownlint',
-        -- Shells
-        'shfmt',
-        'shellcheck',
-        -- TOML
-        'taplo',
-        -- C/C++/...
-        'clang-format',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      servers.sourcekit = {
-        capabilities = {
-          workspace = {
-            didChangeWatchedFiles = {
-              dynamicRegistration = true,
-            },
+      if os.getenv('NIX') then
+        local lspconfig = require('lspconfig')
+        for server_name, server in ipairs(vim.tbl_keys(servers)) do
+          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          lspconfig[server_name].setup(server)
+        end
+      else
+        ---@diagnostic disable-next-line: missing-fields
+        require('mason').setup {
+          registries = {
+            'github:rainx0r/mason-registry',
+            'github:mason-org/mason-registry',
           },
-        },
-      }
+        }
 
-      ---@diagnostic disable-next-line: missing-fields
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+        local ensure_installed = vim.tbl_keys(servers or {})
+        vim.list_extend(ensure_installed, {
+          'stylua', -- Used to format Lua code
+          'markdownlint',
+          -- Shells
+          'shfmt',
+          'shellcheck',
+          -- TOML
+          'taplo',
+          -- C/C++/...
+          'clang-format',
+        })
+        require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+        ---@diagnostic disable-next-line: missing-fields
+        require('mason-lspconfig').setup {
+          handlers = {
+            function(server_name)
+              local server = servers[server_name] or {}
+              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+              require('lspconfig')[server_name].setup(server)
+            end,
+          },
+        }
+      end
     end,
   },
   { -- Autoformat
