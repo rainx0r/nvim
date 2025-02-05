@@ -166,13 +166,7 @@ return {
         jsonls = {},
       }
 
-      if os.getenv('NIX') then
-        local lspconfig = require('lspconfig')
-        for server_name, server in ipairs(vim.tbl_keys(servers)) do
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          lspconfig[server_name].setup(server)
-        end
-      else
+      if not os.getenv('NIX') then
         ---@diagnostic disable-next-line: missing-fields
         require('mason').setup {
           registries = {
@@ -205,6 +199,13 @@ return {
             end,
           },
         }
+      else
+        servers.nixd = {}
+
+        for server_name, server_config in pairs(servers) do
+          server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+          require('lspconfig')[server_name].setup(server_config)
+        end
       end
     end,
   },
@@ -260,6 +261,7 @@ return {
         cpp = { "clang-format" },
         proto = { "clang-format" },
         cuda = { "clang-format" },
+        nix = { "nixfmt" },
       },
     },
   },
