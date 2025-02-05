@@ -7,11 +7,14 @@ return {
     },
     config = function()
       require('auto-session').setup {
-        auto_session_suppress_dirs = {
+        suppress_dirs = {
           '~/',
           '~/Documents/Experiments',
+          '~/Experiments',
           '~/Documents/Repositories',
+          '~/Repositories/',
           '~/Documents/Repositories/github.com/',
+          '~/Repositories/github.com/',
           '~/Downloads',
           '/',
         },
