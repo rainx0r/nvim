@@ -166,11 +166,14 @@ return {
         jsonls = {},
       }
 
-      if not os.getenv('NIX') then
+      if os.getenv('NIX') then
+        servers.nixd = {}
+      end
+
+      if os.getenv('NVIM_USE_MASON') then
         ---@diagnostic disable-next-line: missing-fields
         require('mason').setup {
           registries = {
-            'github:rainx0r/mason-registry',
             'github:mason-org/mason-registry',
           },
         }
@@ -200,8 +203,6 @@ return {
           },
         }
       else
-        servers.nixd = {}
-
         for server_name, server_config in pairs(servers) do
           server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
           require('lspconfig')[server_name].setup(server_config)
