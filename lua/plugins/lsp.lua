@@ -41,7 +41,7 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
       {
         'folke/lazydev.nvim',
         ft = 'lua',
@@ -209,7 +209,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_format' },
-        typst = { 'typstyle' },
+        typst = { 'typstyle', lsp_format = 'fallback' },
         sh = { 'shfmt' },
         zsh = { 'shfmt' },
         toml = { 'taplo' },
