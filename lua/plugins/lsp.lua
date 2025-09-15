@@ -12,6 +12,7 @@ return {
         'luadoc',
         'markdown',
         'markdown_inline',
+        'typst',
         'query',
         'vim',
         'vimdoc',
@@ -121,6 +122,7 @@ return {
 
       -- Enable the following language servers
       local servers = {
+        tinymist = {},
         basedpyright = {
           settings = {
             basedpyright = {
@@ -248,6 +250,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_format' },
+        typst = { 'typstyle' },
         sh = { 'shfmt' },
         zsh = { 'shfmt' },
         toml = { 'taplo' },
