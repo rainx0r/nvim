@@ -42,27 +42,7 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', "avante_commands", "avante_mentions", "avante_files" },
-        providers = {
-          avante_commands = {
-            name = "avante_commands",
-            module = "blink.compat.source",
-            score_offset = 90,
-            opts = {},
-          },
-          avante_files = {
-            name = "avante_commands",
-            module = "blink.compat.source",
-            score_offset = 100,
-            opts = {},
-          },
-          avante_mentions = {
-            name = "avante_mentions",
-            module = "blink.compat.source",
-            score_offset = 1000,
-            opts = {},
-          },
-        },
+        default = { 'lsp', 'path', 'snippets' },
       },
     },
   },
@@ -77,66 +57,5 @@ return {
         },
       }
     end
-  },
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false,
-    opts = {
-      hints = { enabled = false },
-      file_selector = {
-        provider = "fzf",
-        provider_opts = {},
-      },
-      behaviour = {
-        auto_suggestions = false,
-      }
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    dependencies = {
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "echasnovski/mini.icons",
-      "ibhagwan/fzf-lua",
-      {
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-      {
-        "folke/which-key.nvim",
-        opts = {
-          spec = {
-            { "<leader>a", group = "ai" },
-          },
-        },
-      },
-    },
-  },
-  { -- For the Avante.nvim plugin
-    'saghen/blink.compat',
-    version = '*',
-    lazy = true,
-    opts = {},
-  },
+  }
 }
