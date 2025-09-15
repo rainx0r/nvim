@@ -70,4 +70,10 @@ return {
       },
     },
   },
+  { -- Live preview for Typst documents
+    'chomosuke/typst-preview.nvim',
+    ft = { 'typst' },
+    version = '1.*',
+    opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+  },
 }
