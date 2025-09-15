@@ -41,9 +41,6 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim',       opts = {} },
       {
         'folke/lazydev.nvim',
@@ -166,49 +163,12 @@ return {
         },
         terraformls = {},
         jsonls = {},
+        nixd = {},
       }
 
-      if os.getenv('NIX') then
-        servers.nixd = {}
-      end
-
-      if os.getenv('NVIM_USE_MASON') then
-        ---@diagnostic disable-next-line: missing-fields
-        require('mason').setup {
-          registries = {
-            'github:mason-org/mason-registry',
-          },
-        }
-
-        local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-          'stylua', -- Used to format Lua code
-          'markdownlint',
-          -- Shells
-          'shfmt',
-          'shellcheck',
-          -- TOML
-          'taplo',
-          -- C/C++/...
-          'clang-format',
-        })
-        require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-        ---@diagnostic disable-next-line: missing-fields
-        require('mason-lspconfig').setup {
-          handlers = {
-            function(server_name)
-              local server = servers[server_name] or {}
-              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-              require('lspconfig')[server_name].setup(server)
-            end,
-          },
-        }
-      else
-        for server_name, server_config in pairs(servers) do
-          server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
-          require('lspconfig')[server_name].setup(server_config)
-        end
+      for server_name, server_config in pairs(servers) do
+        server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+        require('lspconfig')[server_name].setup(server_config)
       end
     end,
   },
@@ -216,14 +176,8 @@ return {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    config = function()
-      require('conform').setup {
-        formatters = {
-          taplo = {
-            args = '--option indent_string="    "',
-          },
-        },
-      }
+    config = function(_, opts)
+      require('conform').setup(opts)
     end,
     keys = {
       {
@@ -247,6 +201,11 @@ return {
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
+      formatters = {
+        taplo = {
+          args = '--option indent_string="    "',
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_format' },

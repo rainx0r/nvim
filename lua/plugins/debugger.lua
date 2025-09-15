@@ -4,8 +4,6 @@ return {
     dependencies = {
       'rcarriga/nvim-dap-ui',
       'nvim-neotest/nvim-nio',
-      'williamboman/mason.nvim',
-      'jay-babu/mason-nvim-dap.nvim',
 
       -- Add your own debuggers here
       'mfussenegger/nvim-dap-python',
@@ -34,15 +32,6 @@ return {
     config = function()
       local dap = require 'dap'
       local dapui = require 'dapui'
-
-      require('mason-nvim-dap').setup {
-        automatic_installation = true,
-        handlers = {},
-        ensure_installed = {
-          -- Update this to ensure that you have the debuggers for the langs you want
-          'debugpy',
-        },
-      }
 
       -- For more information, see |:help nvim-dap-ui|
       ---@diagnostic disable-next-line: missing-fields
