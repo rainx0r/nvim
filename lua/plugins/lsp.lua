@@ -120,9 +120,9 @@ return {
       -- Enable the following language servers
       local servers = {
         tinymist = {},
-        basedpyright = {
+        pyright = {
           settings = {
-            basedpyright = {
+            python = {
               disableOrganizeImports = true,
               disableTaggedHints = false,
               analysis = {
