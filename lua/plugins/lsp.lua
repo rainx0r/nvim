@@ -38,24 +38,23 @@ return {
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
+  {
+    -- `lazydev` configures Lua LSP for Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  'saghen/blink.cmp',
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'j-hui/fidget.nvim',    opts = {} },
-      {
-        'folke/lazydev.nvim',
-        ft = 'lua',
-        opts = {
-          library = {
-            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-          },
-        },
-      },
-      { 'Bilal2453/luvit-meta', lazy = true },
-      {
-        'saghen/blink.cmp',
-        version = '*',
-      }
+      { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -82,7 +81,7 @@ return {
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -106,16 +105,13 @@ return {
           end
 
           -- Inlay hints
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
         end,
       })
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
       -- Enable the following language servers
       local servers = {
@@ -167,9 +163,9 @@ return {
       }
 
       for server_name, server_config in pairs(servers) do
-        server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
-        require('lspconfig')[server_name].setup(server_config)
+        vim.lsp.config(server_name, server_config)
       end
+      vim.lsp.enable(vim.tbl_keys(servers))
     end,
   },
   { -- Autoformat
@@ -217,14 +213,14 @@ return {
         hcl = { 'packer_fmt' },
         tf = { 'terraform_fmt' },
         terraform = { 'terraform_fmt' },
-        ["terraform-vars"] = { "terraform_fmt" },
-        c = { "clang-format" },
-        cs = { "clang-format" },
-        cc = { "clang-format" },
-        cpp = { "clang-format" },
-        proto = { "clang-format" },
-        cuda = { "clang-format" },
-        nix = { "nixfmt" },
+        ['terraform-vars'] = { 'terraform_fmt' },
+        c = { 'clang-format' },
+        cs = { 'clang-format' },
+        cc = { 'clang-format' },
+        cpp = { 'clang-format' },
+        proto = { 'clang-format' },
+        cuda = { 'clang-format' },
+        nix = { 'nixfmt' },
       },
     },
   },
