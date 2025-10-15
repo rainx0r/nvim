@@ -1,6 +1,8 @@
 require 'settings'
 require 'keymaps'
 
+require 'scripts.python_lsp_switcher'
+
 -- Install lazy
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then

@@ -160,12 +160,22 @@ return {
         terraformls = {},
         jsonls = {},
         nixd = {},
+        ty = {},
+        pyrefly = {},
       }
+
+      local disabled_servers = { 'ty', 'pyrefly' }
+      local skip = {}
+      for _, s in ipairs(disabled_servers) do
+        skip[s] = true
+      end
 
       for server_name, server_config in pairs(servers) do
         vim.lsp.config(server_name, server_config)
+        if not skip[server_name] then
+          vim.lsp.enable(server_name)
+        end
       end
-      vim.lsp.enable(vim.tbl_keys(servers))
     end,
   },
   { -- Autoformat
