@@ -9,7 +9,7 @@ return {
 
       completion = {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
-        accept = { auto_brackets = { enabled = true }, },
+        accept = { auto_brackets = { enabled = true } },
         menu = {
           draw = {
             padding = 0,
@@ -21,24 +21,24 @@ return {
               },
               kind = {
                 text = function(ctx)
-                  return " (" .. ctx.kind .. ") "
+                  return ' (' .. ctx.kind .. ') '
                 end,
                 highlight = function(_)
-                  return { { 0, 0, group = "BlinkCmpMenu" } }
-                end
-              }
+                  return { { 0, 0, group = 'BlinkCmpMenu' } }
+                end,
+              },
             },
             columns = {
-              { "kind_icon", },
-              { "label",     "label_description", "kind", gap = 1 },
+              { 'kind_icon' },
+              { 'label', 'label_description', 'kind', gap = 1 },
             },
             treesitter = { 'lsp' },
-          }
+          },
         },
       },
 
       appearance = {
-        nerd_font_variant = 'normal'
+        nerd_font_variant = 'normal',
       },
 
       sources = {
@@ -46,16 +46,16 @@ return {
       },
     },
   },
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = "<Tab>",
-          clear_suggestion = "<C-]>",
-          accept_word = "<C-j>",
-        },
-      }
-    end
-  }
+  -- {
+  --   'supermaven-inc/supermaven-nvim',
+  --   config = function()
+  --     require('supermaven-nvim').setup {
+  --       keymaps = {
+  --         accept_suggestion = "<Tab>",
+  --         clear_suggestion = "<C-]>",
+  --         accept_word = "<C-j>",
+  --       },
+  --     }
+  --   end
+  -- }
 }

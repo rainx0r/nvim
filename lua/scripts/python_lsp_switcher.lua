@@ -1,3 +1,6 @@
+-- TODO: stop isn't working consistently atm
+-- TODO: this doesn't enable or disable the LSP servers session-wide
+
 local lsps = { 'pyright', 'ty', 'pyrefly' }
 local known = {}
 for _, s in ipairs(lsps) do
