@@ -214,7 +214,7 @@ return {
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'ruff_format' },
+        python = { 'ruff_format', 'ruff_organize_imports' },
         typst = { 'typstyle', lsp_format = 'fallback' },
         sh = { 'shfmt' },
         zsh = { 'shfmt' },
