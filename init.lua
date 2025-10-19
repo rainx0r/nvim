@@ -23,7 +23,6 @@ require('lazy').setup({
   require 'plugins.lsp',
   require 'plugins.autocomplete',
   require 'plugins.tests',
-  require 'plugins.debugger',
   require 'plugins.git',
   require 'plugins.utils',
 
