@@ -116,23 +116,7 @@ return {
       -- Enable the following language servers
       local servers = {
         tinymist = {},
-        pyright = {
-          settings = {
-            python = {
-              disableOrganizeImports = true,
-              disableTaggedHints = false,
-              analysis = {
-                typeCheckingMode = 'standard',
-                useLibraryCodeForTypes = true,
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                diagnosticSeverityOverrides = {
-                  reportIgnoreCommentWithoutRule = true,
-                },
-              },
-            },
-          },
-        },
+        ty = {},
         ruff = {
           capabilities = {
             hoverProvider = false,
@@ -160,21 +144,11 @@ return {
         terraformls = {},
         jsonls = {},
         nixd = {},
-        ty = {},
-        pyrefly = {},
       }
-
-      local disabled_servers = { 'ty', 'pyrefly' }
-      local skip = {}
-      for _, s in ipairs(disabled_servers) do
-        skip[s] = true
-      end
 
       for server_name, server_config in pairs(servers) do
         vim.lsp.config(server_name, server_config)
-        if not skip[server_name] then
-          vim.lsp.enable(server_name)
-        end
+        vim.lsp.enable(server_name)
       end
     end,
   },

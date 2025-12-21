@@ -12,20 +12,13 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-telescope/telescope-project.nvim' },
-      { 'nvim-telescope/telescope-live-grep-args.nvim' },
-      { 'nvim-tree/nvim-web-devicons',                 enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       require('telescope').setup {
         defaults = {
           path_display = { 'smart' },
-          --   mappings = {
-          --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          --   },
         },
-        -- pickers = {}
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -36,8 +29,6 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'project')
-      pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -127,10 +118,10 @@ return {
       'TmuxNavigatePrevious',
     },
     keys = {
-      { '<c-h>',  '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>',  '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>',  '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>',  '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
   },

@@ -1,6 +1,6 @@
 return {
-  'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth automatically
-  {                     -- Useful plugin to show you pending keybinds.
+  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -13,7 +13,6 @@ return {
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]ests' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       }
     end,
