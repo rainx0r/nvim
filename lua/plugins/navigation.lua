@@ -59,10 +59,6 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
-
-      -- Extension binds
-      local extensions = require('telescope').extensions
-      vim.keymap.set('n', '<leader>sp', extensions.project.project, { desc = '[S]earch [P]rojects' })
     end,
   },
   {
