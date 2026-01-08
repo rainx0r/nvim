@@ -193,7 +193,7 @@ return {
         sh = { 'shfmt' },
         zsh = { 'shfmt' },
         toml = { 'taplo' },
-        swift = { 'swiftformat' },
+        swift = { 'swift' },
         hcl = { 'packer_fmt' },
         tf = { 'terraform_fmt' },
         terraform = { 'terraform_fmt' },
