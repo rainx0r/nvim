@@ -116,7 +116,24 @@ return {
       -- Enable the following language servers
       local servers = {
         tinymist = {},
-        ty = {},
+        -- ty = {},
+        pyright = {
+          settings = {
+            python = {
+              disableOrganizeImports = true,
+              disableTaggedHints = false,
+              analysis = {
+                typeCheckingMode = 'standard',
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticSeverityOverrides = {
+                  reportIgnoreCommentWithoutRule = true,
+                },
+              },
+            },
+          },
+        },
         ruff = {
           capabilities = {
             hoverProvider = false,
