@@ -14,3 +14,6 @@ vim.keymap.set('n', '<C-w>', '<cmd>bnext<CR>')
 vim.keymap.set('n', '<C-q>', '<cmd>bprev<CR>')
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste without overwriting register.' })
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]], { desc = 'Paste without overwriting register.' })
