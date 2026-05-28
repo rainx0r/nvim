@@ -45,10 +45,6 @@ return {
       statusline.section_location = function()
         return '%2l:%-2v'
       end
-
-      -- Tabs for buffers
-      local tabline = require 'mini.tabline'
-      tabline.setup { use_icons = vim.g.have_nerd_font }
     end,
   },
   {

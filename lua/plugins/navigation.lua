@@ -65,6 +65,22 @@ return {
     ---@module 'oil'
     opts = {},
     dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
+    keys = {
+      {
+        '<leader>wd',
+        function()
+          require('oil').open(vim.fn.getcwd())
+        end,
+        desc = '[W]orkspace [D]irectory',
+      },
+      {
+        '<leader>ed',
+        function()
+          require('oil').open(vim.fn.getcwd())
+        end,
+        desc = '[E]dit [D]irectory',
+      },
+    },
     lazy = false,
   },
   {
