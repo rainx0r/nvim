@@ -61,48 +61,12 @@ return {
     end,
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
-    version = '*',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-    },
-    cmd = 'Neotree',
-    keys = {
-      { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal' },
-    },
-    opts = {
-      filesystem = {
-        filtered_items = {
-          visible = true,
-          show_hidden_count = true,
-          hide_dotfiles = false,
-          hide_gitignored = false,
-          hide_by_name = {
-            '.DS_Store',
-            '.git',
-          },
-          never_show = {
-            '.DS_Store',
-            '.git',
-            '__pycache__',
-            '*.egg-info',
-            '.vscode',
-            '.mypy_cache',
-            '.idea',
-            '.pytest_cache',
-          },
-        },
-        window = {
-          mappings = {
-            ['\\'] = 'close_window',
-          },
-        },
-      },
-    },
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    opts = {},
+    dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
+    lazy = false,
   },
-
   {
     'christoomey/vim-tmux-navigator',
     cmd = {
