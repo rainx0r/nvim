@@ -75,10 +75,8 @@ return {
       },
       {
         '<leader>ed',
-        function()
-          require('oil').open(vim.fn.getcwd())
-        end,
-        desc = '[E]dit [D]irectory',
+        '<CMD>Oil<CR>',
+        { desc = '[E]dit [D]irectory' },
       },
     },
     lazy = false,
