@@ -9,7 +9,7 @@ vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.mouse = 'a'
 vim.opt.showmode = false
-vim.opt.clipboard = 'unnamedplus'
+
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
@@ -51,3 +51,35 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+-- Clipboard
+-- I think this will no longer be needed at a newer tmux version since supposedly it was already fixed
+-- https://github.com/tmux/tmux/issues/4275
+-- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}
+if vim.env.TMUX ~= nil then
+  local copy = { 'tmux', 'load-buffer', '-w', '-' }
+  local paste = { 'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -' }
+  vim.g.clipboard = {
+    name = 'tmux',
+    copy = {
+      ['+'] = copy,
+      ['*'] = copy,
+    },
+    paste = {
+      ['+'] = paste,
+      ['*'] = paste,
+    },
+    cache_enabled = 0,
+  }
+end
