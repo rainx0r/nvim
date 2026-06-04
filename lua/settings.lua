@@ -56,6 +56,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- I think this will no longer be needed at a newer tmux version since supposedly it was already fixed
 -- https://github.com/tmux/tmux/issues/4275
 -- https://github.com/neovim/neovim/discussions/29350#discussioncomment-10299517
+vim.opt.clipboard = 'unnamedplus'
 vim.g.clipboard = {
   name = 'OSC 52',
   copy = {
