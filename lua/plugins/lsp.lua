@@ -158,7 +158,7 @@ return {
       -- Enable the following language servers
       local servers = {
         tinymist = {},
-        ty = {},
+        pyrefly = {},
         ruff = {
           capabilities = {
             hoverProvider = false,
