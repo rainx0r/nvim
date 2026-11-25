@@ -83,7 +83,7 @@ return {
   },
   {
     'christoomey/vim-tmux-navigator',
-    cond = (vim.env.TMUX or '') ~= '' or (vim.env.REX_SESSION or '') == '' or (vim.env.REX_BLOCK or '') == '',
+    cond = (vim.env.TMUX or '') ~= '' or (vim.env.REX_BLOCK or '') == '',
     cmd = {
       'TmuxNavigateLeft',
       'TmuxNavigateDown',
